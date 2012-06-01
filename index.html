@@ -119,13 +119,13 @@ StackMob's server responses will show up here after you submit your form.
     var val = document.getElementById('val').value;
 
     //if the username isn't empty
-    if (username != '') {
+    if (username != '' && val != '') {
       /* #########################################
        * START STACKMOB JS CODE
        * ######################################### */
 
       var user = new StackMob.User({ username: username });
-        user.save({ age: val }, callbacks() );
+        user.save({ age: parseInt(val) }, callbacks() );
 
       /* #########################################
        * END STACKMOB JS CODE

@@ -39,9 +39,11 @@ This example shows you how you can save and fetch users to your StackMob datasto
 
 <div class="form">
 	<!--Forms that will create and read users-->
-	<input id="username" type="text" value=""/>
+  <input id="username" type="text" value=""/>
+  <input id="val" type="text" value=""/>
 	<input id="create" type="submit" onclick="create();" value="Create User" class="button"/>
-	<input id="read" type="submit" onclick="read();" value="Fetch User" class="button"/>
+  <input id="read" type="submit" onclick="read();" value="Fetch User" class="button"/>
+  <input id="update" type="submit" onclick="update();" value="Update User" class="button"/>
 </div>
 
 <div class="results_header"><h1>Results</h1> <div class="results_objectbrowser">You can also view your data via the web-based <a href="https://www.stackmob.com/platform/api/schemas/browser" target="_blank">Object Browser</a> on StackMob.</div></div>
@@ -49,13 +51,7 @@ This example shows you how you can save and fetch users to your StackMob datasto
 StackMob's server responses will show up here after you submit your form.
 </textarea>
 
-
-
 <div class="footnote">This demo MUST be run in <a href="https://www.stackmob.com/platform/help/tutorials/html5_js_sdk#a-step_2_of_3:_running_this_file_locally" target="_blank">StackMob's Local HTML Runner</a> or be hosted on StackMob's HTML5 hosting solution.  Otherwise the required AJAX calls will not work.</div>
-
-
-
-
 
 
 <!-- JAVASCRIPT CODE AND STACKMOB JS SDK EXAMPLES BELOW! -->
@@ -77,8 +73,6 @@ StackMob's server responses will show up here after you submit your form.
         'age': 30, //add on any custom fields you like
         'title': 'developer'
       };
-
-
       /* #########################################
        * START STACKMOB JS CODE
        * ######################################### */
@@ -95,8 +89,6 @@ StackMob's server responses will show up here after you submit your form.
       /* #########################################
        * END STACKMOB JS CODE
        * ######################################### */
-
-
     }}
 
   /* This runs when you click on the "Fetch User" button */
@@ -106,12 +98,6 @@ StackMob's server responses will show up here after you submit your form.
 
     //if the username isn't empty
     if (username != '') {
-
-
-
-
-
-
       /* #########################################
        * START STACKMOB JS CODE
        * ######################################### */
@@ -120,16 +106,36 @@ StackMob's server responses will show up here after you submit your form.
       var fetchuser = new StackMob.User({ 'username': username });
       fetchuser.fetch(callbacks());
 
+      /* #########################################
+       * END STACKMOB JS CODE
+       * ######################################### */
+    }
+  }
+
+  /* This runs when you click on the "Update User" button */
+  function update() {
+  //Get the username from the form field
+    var username = document.getElementById('username').value;
+    var val = document.getElementById('val').value;
+
+    //if the username isn't empty
+    if (username != '') {
+      /* #########################################
+       * START STACKMOB JS CODE
+       * ######################################### */
+
+      var user = new StackMob.User({ username: username });
+        user.save({ age: val }, callbacks() );
 
       /* #########################################
        * END STACKMOB JS CODE
        * ######################################### */
 
-
-
     }
 
   }
+
+
 
   /* Create, Fetch, and almost all other StackMob JS SDK methods have callbacks:  success/error.
      These will run when a response is heard back from the StackMob Servers.
